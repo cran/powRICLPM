@@ -59,7 +59,7 @@
 #' A progress bar displaying the status of the power analysis has been implemented using \pkg{progressr}. By default, a simple progress bar will be shown. For more information on how to control this progress bar and several other notification options (e.g., auditory notifications), see \url{https://progressr.futureverse.org}.}
 #'
 #' @return
-#' A \code{list} containing a \code{conditions} and \code{session} element. \code{condition} itself is a \code{list} of experimental conditions, where each element is again a \code{list} containing the input and output of the power analysis for that particular experimental condition. \code{session} is a \code{list} containing information common to all experimental conditions.
+#' An object of class `powRICLPM` \code{list} containing a \code{conditions} and \code{session} element. \code{condition} itself is a \code{list} of experimental conditions, where each element is again a \code{list} containing the input and output of the power analysis for that particular experimental condition. \code{session} is a \code{list} containing information common to all experimental conditions.
 #'
 #' @author Jeroen D. Mulder \email{j.d.mulder@@uu.nl}
 #'
@@ -88,15 +88,15 @@
 #' future::plan(multisession)
 #'
 #' \donttest{
-#' # Run analysis ("reps" is small, because this is an example)
+#' # Run analysis (`reps` is small, because this is an example)
 #' with_progress({
-#'   power_preliminary <- powRICLPM(
+#'   out_preliminary <- powRICLPM(
 #'     target_power = 0.8,
 #'     search_lower = 500,
-#'     search_upper = 1000,
+#'     search_upper = 800,
 #'     search_step = 100,
 #'     time_points = c(3, 4),
-#'     ICC = c(0.4, 0.5, 0.6),
+#'     ICC = c(0.4, 0.6),
 #'     RI_cor = 0.3,
 #'     Phi = Phi,
 #'     within_cor = 0.3,
@@ -145,7 +145,7 @@ powRICLPM <- function(target_power,
   ICC <- check_ICC(ICC)
   RI_cor <- check_RIcor(RI_cor)
   wSigma <- check_within_cor(within_cor)
-  Phi <- check_Phi(Phi)
+  Phi <- check_Phi_intern(Phi)
   reliability <- check_reliability(reliability)
   skewness <- check_skewness(skewness)
   kurtosis <- check_kurtosis(kurtosis)
@@ -154,7 +154,7 @@ powRICLPM <- function(target_power,
   reps <- check_reps(reps)
   bootstrap_reps <- check_reps(bootstrap_reps)
   seed <- check_seed(seed)
-  constraints <- check_constraints(constraints)
+  constraints <- check_constraints(constraints, estimate_ME)
   bounds <- check_bounds(bounds, constraints)
   estimator <- check_estimator(estimator, skewness, kurtosis)
   save_path <- check_save_path(save_path)
@@ -206,12 +206,12 @@ powRICLPM <- function(target_power,
   )))
 
   # Prepare progress bar
-  p <- progressr::progressor(along = object$conditions)
+  p <- progressr::progressor(steps = length(object$conditions))
 
   # Run Monte Carlo simulation for each condition
   object$conditions <- furrr::future_map(object$conditions,
     run_condition,
-    progress = p,
+    p = p,
     bounds = bounds,
     estimator = estimator,
     reps = reps,
@@ -286,11 +286,11 @@ powRICLPM_Mplus <- function(search_lower = NULL,
   ICC <- check_ICC(ICC)
   RI_cor <- check_RIcor(RI_cor)
   wSigma <- check_within_cor(within_cor)
-  Phi <- check_Phi(Phi)
+  Phi <- check_Phi_intern(Phi)
   reps <- check_reps(reps)
   seed <- check_seed(seed)
   save_path <- check_save(save_path)
-  constraints <- check_constraints(constraints)
+  constraints <- check_constraints(constraints, estimate_ME = FALSE)
 
   # Compute population parameter values for data generation
   Psi <- compute_Psi(Phi, wSigma)

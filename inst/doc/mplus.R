@@ -1,5 +1,6 @@
 ## ----preparation, eval = FALSE------------------------------------------------
-#  Phi <- matrix(c(.4, .1, .2, .3), ncol = 2, byrow = T) # The .2 refers to our standardized cross-lagged effect of interest
+#  Phi <- matrix(c(.4, .1, .2, .3), ncol = 2, byrow = T)
+#  # The .2 refers to our standardized cross-lagged effect of interest
 #  ICC <- 0.5
 #  RI_cor <- 0.3
 

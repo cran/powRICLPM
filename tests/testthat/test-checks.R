@@ -55,14 +55,14 @@ test_that("check_within_cor() works", {
 })
 
 # Test check_Phi() ----
-test_that("check_Phi() works", {
+test_that("check_Phi_intern() works", {
   # Create sample matrices
   m1 <- matrix(c(.3, .2, .15, .2), ncol = 2, byrow = TRUE)
   m2 <- matrix(c(.8, .5, .4, .9), ncol = 2, byrow = TRUE)
 
-  expect_equal(check_Phi(m1), m1)
-  expect_error(check_Phi("m1"))
-  expect_error(check_Phi(m2))
+  expect_equal(check_Phi_intern(m1), m1)
+  expect_error(check_Phi_intern("m1"))
+  expect_error(check_Phi_intern(m2))
 })
 
 # Test check_skewness() and check_kurtosis() ----
@@ -91,12 +91,6 @@ test_that("check_seed() works", {
   expect_warning(check_seed(NA))
   expect_error(check_seed("1234"))
   expect_error(check_seed(1234.5))
-})
-
-# Test check_parameter_given() ----
-test_that("check_parameter_given() works", {
-  expect_equal(check_parameter_given("wB2~wA1"), "wB2~wA1")
-  expect_error(check_parameter_given(NULL))
 })
 
 # Test check_reps() ----
@@ -156,11 +150,13 @@ test_that("check_estimate_ME() works", {
 
 # Test check_constraints() ----
 test_that("check_constraints() works", {
-  expect_error(check_constraints(1))
-  expect_error(check_constraints("a"))
-  expect_error(check_constraints(TRUE))
-  expect_error(check_constraints(c("none", "ME")))
-  expect_equal(check_constraints("lagged"), "lagged")
+  expect_error(check_constraints(1, estimate_ME = F))
+  expect_error(check_constraints("a", estimate_ME = F))
+  expect_error(check_constraints(TRUE, estimate_ME = F))
+  expect_error(check_constraints(c("none", "ME"), estimate_ME = F))
+  expect_error(check_constraints("ME", estimate_ME = F))
+  expect_equal(check_constraints("lagged", estimate_ME = F), "lagged")
+  expect_equal(check_constraints("ME", estimate_ME = T), "ME")
 })
 
 # Test check_estimator() ----

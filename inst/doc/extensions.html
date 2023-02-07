@@ -241,8 +241,9 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <p>The basic power analysis as described in the Vignette <a href="https://jeroendmulder.github.io/powRICLPM/articles/start.html">Getting
 started</a> can be extended to using bounded estimation, estimation with
-constraints over time, and the inclusion of measurement error variances.
-These extensions are described below.</p>
+constraints over time, and the inclusion of measurement error variances
+in the generated data and estimation model. These extensions are
+described below.</p>
 <div id="bounded-estimation-with-lavaan" class="section level2">
 <h2>Bounded estimation with <code>lavaan</code></h2>
 <p>To prevent non-convergence for small sample sizes (say, less than
@@ -262,14 +263,14 @@ parameters.</p>
 </div>
 <div id="constraints-over-time" class="section level2">
 <h2>Constraints over time</h2>
-<p><code>powRICLPM</code> offers users the option to impose various
+<p><code>powRICLPM()</code> offers users the option to impose various
 constraints over time on the estimation model through the
 <code>constraints</code> argument. This has statistical advantages as
 constraints over time reduce model complexity, thereby potentially
 reducing convergence issues and increasing power. Moreover, some
 researchers are interested in so called ‘stationarity’ constraints for
-theoretical reasons. Disadvantages of such constraints are that they
-assume certain parameters over time do not change. This might not be an
+theoretical reasons. A disadvantage of such constraints is that they
+assume certain parameters to be time-invariant. This might not be an
 assumption researchers are willing to make, especially in developmental
 contexts where you expect lagged effects might change over time (e.g.,
 the variable <code>wA</code> gets more important in driving
@@ -279,9 +280,9 @@ within-components (residual) variances and covariances are freely
 estimated over time.</p>
 <p>Constraint options include:</p>
 <ul>
-<li><code>constraints = &quot;lagged&quot;</code>: All autoregressive and
-cross-lagged effects are constrained to be equal over time.</li>
-<li><code>constraints = &quot;residuals</code>: The within-unit residual
+<li><code>constraints = &quot;lagged&quot;</code>: Autoregressive and cross-lagged
+effects are constrained to be equal over time.</li>
+<li><code>constraints = &quot;residuals</code>: Within-unit residual
 variances and covariance (from wave 2 onward) are constrained to be
 equal over time.</li>
 <li><code>constraints = &quot;within&quot;</code>: Both lagged effects and
@@ -295,27 +296,27 @@ at the first wave are fixed to 1, and that the residual variances are a
 function of the lagged effects, and correlation between
 within-components at the same wave. These constraints are deduced in the
 supplementary materials of <a href="https://jeroendmulder.github.io/RI-CLPM/faq.html#Standardization">Mulder
-and Hamaker (see the FAQ “How can I constrain the <em>standardized</em>
-parameters to be invariant over time?”)</a>.</li>
+and Hamaker (2021, see the FAQ “How can I constrain the
+<em>standardized</em> parameters to be invariant over time?”)</a>.</li>
 <li><code>constraints = &quot;ME&quot;</code>: Constraints are imposed on the
-measurement error variances across time. This constraint is only
-possible when <code>est_ME = TRUE</code>.</li>
+measurement error variances across time (separately for each variable).
+This constraint is only possible when
+<code>estimate_ME = TRUE</code>.</li>
 </ul>
 </div>
 <div id="measurement-error" class="section level2">
 <h2>Measurement error</h2>
 <p>While it is generally advisable to include measurement error when
 analyzing psychological data, the RI-CLPM does not include it. Adding
-measurement error to the model would result in the bivariate Trait State
-Error (TSE) model by <a href="https://doi.org/10.1037/10409-008">Kenny
-and Zautra (1995)</a>, and requires at least 4 waves of data to be
-identified. Users can add measurement error variances to the estimation
-model by setting the <code>est_ME</code> argument to
-<code>est_ME = TRUE</code>. Measurement error can be added to the
+measurement error to the model would result in the bivariate stable
+trait autoregressive trait state (STARTS) model by <a href="https://doi.org/10.1037/10409-008">Kenny and Zautra (2001)</a>,
+and requires at least 4 waves of data to be identified. Users can add
+measurement error variances to the estimation model by specifying
+<code>estimate_ME = TRUE</code>. Measurement error can be added to the
 simulated data using the <code>reliability</code> argument.</p>
-<p>Note, however, that this model (the bivariate TSE) has been shown to
-be prone to empirical under-identification, often requiring upwards of 8
-waves of data and sample sizes larger than 500.</p>
+<p>Note, however, that the STARTS model has been shown to be prone to
+empirical under-identification, often requiring upwards of 8 waves of
+data and sample sizes larger than 500.</p>
 </div>
 
 

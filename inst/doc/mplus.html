@@ -355,8 +355,9 @@ syntax for multiple experimental conditions simultaneously (although you
 would then still need run each script separately in Mplus itself). The
 function works similarly to <code>powRICLPM()</code> in that it
 implements the procedure for computing population parameter values as
-proposed by Mulder and Hamaker (under review). As such, let’s use the
-same illustrating example as explained in the Vignette <a href="https://jeroendmulder.github.io/powRICLPM/articles/start.html">Getting
+proposed by <a href="https://doi.org/10.1080/10705511.2022.2122467">Mulder (2022)</a>.
+As such, let’s use the same illustrating example as explained in the
+Vignette <a href="https://jeroendmulder.github.io/powRICLPM/articles/start.html">Get
 started</a>.</p>
 <div id="steps-1-and-2-experimental-conditions-and-population-parameter-values" class="section level2">
 <h2>Steps 1 and 2: Experimental conditions and population parameter
@@ -366,11 +367,12 @@ standardized cross-lagged effect of <span class="math inline">\(0.2\)</span> for
 (with incremental steps of 50) for an RI-CLPM with 3, 4 and 5 repeated
 measures. In total, this results in <span class="math inline">\(19
 \times 3 = 57\)</span> experimental conditions. Moreover, following the
-example in the <a href="https://jeroendmulder.github.io/powRICLPM/articles/start.html">Getting
+example in the <a href="https://jeroendmulder.github.io/powRICLPM/articles/start.html">Get
 started</a> Vignette, our population parameter values are:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Phi <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(.<span class="dv">4</span>, .<span class="dv">1</span>, .<span class="dv">2</span>, .<span class="dv">3</span>), <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow =</span> T) <span class="co"># The .2 refers to our standardized cross-lagged effect of interest</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>ICC <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>RI_cor <span class="ot">&lt;-</span> <span class="fl">0.3</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Phi <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(.<span class="dv">4</span>, .<span class="dv">1</span>, .<span class="dv">2</span>, .<span class="dv">3</span>), <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow =</span> T) </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The .2 refers to our standardized cross-lagged effect of interest</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>ICC <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>RI_cor <span class="ot">&lt;-</span> <span class="fl">0.3</span></span></code></pre></div>
 </div>
 <div id="steps-3-5-perform-the-power-analysis" class="section level2">
 <h2>Steps 3-5: Perform the power analysis</h2>
@@ -403,6 +405,9 @@ the Mplus input file to.</li>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">reps =</span> <span class="dv">10000</span>,</span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">seed =</span> <span class="dv">123456</span>,</span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">save_path =</span> <span class="st">&quot;./saved&quot;</span>)</span></code></pre></div>
+<p>Optionally, you can specify the <code>constraints</code> argument to
+extend the basic power analysis setup. This option is further described
+in the Vignette <a href="https://jeroendmulder.github.io/powRICLPM/articles/extensions.html">Extensions</a>.</p>
 <p>The <code>powRICLPM_Mplus()</code> creates an Mplus input file (or
 multiple files when multiple experimental conditions are specified) and
 writes it to the specified directory. The file contains the Mplus model
@@ -412,9 +417,9 @@ information about Monte Carlo simulations in Mplus can be found at <a href="http
 <div id="step-6-summarize-results" class="section level2">
 <h2>Step 6: Summarize results</h2>
 <p>To get output, run each Mplus model syntax file in Mplus. Each time,
-a .out (a text file) is created summarizing the results of the Mplus
-power analysis. A good source for interpreting this output in the
-context of a MONTECARLO study is <a href="https://doi.org/10.1207/S15328007SEM0904_8">Muthén and Muthén
+an output file is created summarizing the results of the Mplus power
+analysis. A good source for interpreting this output in the context of a
+MONTECARLO study is <a href="https://doi.org/10.1207/S15328007SEM0904_8">Muthén and Muthén
 (2002)</a>.</p>
 </div>
 
