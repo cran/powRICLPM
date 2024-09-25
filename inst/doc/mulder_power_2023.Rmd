@@ -1,21 +1,20 @@
 ---
-title: "Online supplementary materials - R code Mulder (2022)"
+title: "Online Supplementary Materials Mulder (2023)"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Mulder (2022)}
+  %\VignetteIndexEntry{Online Supplementary Materials Mulder (2023)}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, eval = FALSE, echo=FALSE}
-options(rmarkdown.html_vignette.check_title = FALSE)
 library(powRICLPM)
 library(ggplot2)
-library(furrr)
+library(future)
 library(progressr)
 ```
 
-This vignette is a supplement to "Power analysis for the random intercept cross-lagged panel model using the `powRICLPM` R-package" by Mulder (2022). It contains the R-code used for performing the power analysis that serves as the illustrative example. In total, there are 171 experimental conditions (19 sample sizes $\times$ 3 numbers of repeated measures $\times$ 3 proportions of between person variance). The analysis is partitioned into two parts to reduce total computation time: A preliminary analysis part, and a validation part. 
+This vignette is a supplement to "Power analysis for the random intercept cross-lagged panel model using the `powRICLPM` R-package" by @mulder_power_2023. It contains the R-code used for performing the power analysis that serves as the illustrative example. In total, there are 171 experimental conditions (19 sample sizes $\times$ 3 numbers of repeated measures $\times$ 3 proportions of between person variance). The analysis is partitioned into two parts to reduce total computation time: A preliminary analysis part, and a validation part. 
 
 ## Preliminary analysis
 First, a Monte Carlo power analysis is performed over all 171 experimental conditions using a limited number of replications (`reps = 100`). These preliminary results serve as a basis for selecting those experimental conditions that show promising results (i.e., that meet the desired power- and accuracy levels). These conditions are then validated using a large number of replications (`reps = 2000`) in the next step. 
@@ -41,14 +40,14 @@ with_progress({
     RI_cor = 0.35,
     Phi = Phi,
     within_cor = 0.26,
-    reps = 100,
+    reps = 5,
     seed = 123456
   )
 })
 
 # Tabular summary of results
 summary(out_preliminary)
-summary(out_preliminary, sample_size = 200, time_points = 3, ICC = 0.3)
+summary(out_preliminary, sample_size = 200, time_points = 3, ICC = 0.3, reliability = 1)
 res_wB2wA1 <- give(out_preliminary, what = "results", parameter = "wB2~wA1")
 
 # Visualize power
@@ -62,9 +61,15 @@ p <- p +
     breaks = seq(200, 2000, 200),
     guide = guide_axis(n.dodge = 2)
   ) +
+  ggplot2::ylab("Power") + 
+  ggplot2::guides(
+    color = ggplot2::guide_legend(title = "Time points", nrow = 1),
+    shape = ggplot2::guide_legend(title = "Reliability", nrow = 1), 
+    fill = "none"
+  ) +
   theme(legend.position = "bottom", text = element_text(size = 8))
 p
-ggsave("Mulder2022_preliminary_power.png", height = 5, width = 7)
+ggsave("C:\\Users\\5879167\\surfdrive\\Research\\RICLPM - Power\\Mulder2023_preliminary_power.png", plot = p, height = 6, width = 7)
 ```
 
 ## Validation

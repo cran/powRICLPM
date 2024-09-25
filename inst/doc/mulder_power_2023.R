@@ -1,8 +1,7 @@
 ## ----setup, eval = FALSE, echo=FALSE------------------------------------------
-#  options(rmarkdown.html_vignette.check_title = FALSE)
 #  library(powRICLPM)
 #  library(ggplot2)
-#  library(furrr)
+#  library(future)
 #  library(progressr)
 
 ## ----preliminary-analysis, eval = FALSE---------------------------------------
@@ -25,14 +24,14 @@
 #      RI_cor = 0.35,
 #      Phi = Phi,
 #      within_cor = 0.26,
-#      reps = 100,
+#      reps = 5,
 #      seed = 123456
 #    )
 #  })
 #  
 #  # Tabular summary of results
 #  summary(out_preliminary)
-#  summary(out_preliminary, sample_size = 200, time_points = 3, ICC = 0.3)
+#  summary(out_preliminary, sample_size = 200, time_points = 3, ICC = 0.3, reliability = 1)
 #  res_wB2wA1 <- give(out_preliminary, what = "results", parameter = "wB2~wA1")
 #  
 #  # Visualize power
@@ -46,9 +45,15 @@
 #      breaks = seq(200, 2000, 200),
 #      guide = guide_axis(n.dodge = 2)
 #    ) +
+#    ggplot2::ylab("Power") +
+#    ggplot2::guides(
+#      color = ggplot2::guide_legend(title = "Time points", nrow = 1),
+#      shape = ggplot2::guide_legend(title = "Reliability", nrow = 1),
+#      fill = "none"
+#    ) +
 #    theme(legend.position = "bottom", text = element_text(size = 8))
 #  p
-#  ggsave("Mulder2022_preliminary_power.png", height = 5, width = 7)
+#  ggsave("C:\\Users\\5879167\\surfdrive\\Research\\RICLPM - Power\\Mulder2023_preliminary_power.png", plot = p, height = 6, width = 7)
 
 ## ----validation, eval = FALSE-------------------------------------------------
 #  # Setup parallel processing to speed up computations
