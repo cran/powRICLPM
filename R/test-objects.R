@@ -31,9 +31,10 @@
 # reps = 20
 # bootstrap_reps = NULL
 # seed = NA
-# constraints = "none"
+# constraints = "stationarity"
 # bounds = FALSE
 # estimator = "ML"
 # save_path = NULL
 # software = "lavaan"
 # options_furrr = NULL
+# Psi <- powRICLPM:::compute_Psi(Phi, within_cor)

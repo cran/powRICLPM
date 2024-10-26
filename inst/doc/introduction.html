@@ -12,7 +12,7 @@
 
 
 
-<title>Introduction</title>
+<title>Get Started</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -359,7 +359,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<h1 class="title toc-ignore">Introduction</h1>
+<h1 class="title toc-ignore">Get Started</h1>
 
 
 
@@ -374,8 +374,8 @@ components of <span class="math inline">\(a_{1}\)</span> and <span class="math i
 in the strategy as described in <span class="citation">Mulder
 (2023)</span>. Various extensions are available for this basic power
 analysis, and are described in the Vignette <a href="https://jeroendmulder.github.io/powRICLPM/articles/extensions.html">Extensions</a>.</p>
-<div id="step-1-determine-experimental-conditions" class="section level2">
-<h2>Step 1: Determine experimental conditions</h2>
+<div id="step-1-determine-experimental-conditions" class="section level1">
+<h1>Step 1: Determine experimental conditions</h1>
 <p>Before performing the power analysis, you must first determine the
 <em>experimental conditions</em> of interest. Experimental conditions
 (or: simulation conditions) are defined by characteristics of the study
@@ -390,8 +390,8 @@ from 3 to 5. If these experimental conditions do not lead to the desired
 amount of power for detecting the small cross-lagged effect, the ranges
 can be extended later.</p>
 </div>
-<div id="step-2-choose-population-parameter-values" class="section level2">
-<h2>Step 2: Choose population parameter values</h2>
+<div id="step-2-choose-population-parameter-values" class="section level1">
+<h1>Step 2: Choose population parameter values</h1>
 <p>Next, determine population parameter values for generating data from
 the RI-CLPM. This requires the specification of:</p>
 <ul>
@@ -425,8 +425,8 @@ interpreted.</p>
 ## • Cross-lagged effect of A -&gt; B: 0.2
 ## • Cross-lagged effect of B -&gt; A: 0.1</code></pre>
 </div>
-<div id="steps-3-5-perform-the-power-analysis" class="section level2">
-<h2>Steps 3-5: Perform the power analysis</h2>
+<div id="steps-3-5-perform-the-power-analysis" class="section level1">
+<h1>Steps 3-5: Perform the power analysis</h1>
 <p>Steps 3 to 5 are automated by the <code>powRICLPM()</code> function.
 As input, you must provide:</p>
 <ul>
@@ -471,8 +471,8 @@ the Vignette <a href="https://jeroendmulder.github.io/powRICLPM/articles/extensi
 <span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>  <span class="at">within_cor =</span> <span class="fl">0.3</span>,</span>
 <span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a>  <span class="at">reps =</span> n_reps</span>
 <span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>)</span></code></pre></div>
-<div id="parallel-processing-using-furrr" class="section level3">
-<h3>Parallel processing using <code>furrr</code></h3>
+<div id="parallel-processing-using-future" class="section level2">
+<h2>Parallel processing using <code>future</code></h2>
 <p>Performing a Monte Carlo power analysis with a large number of
 replications, and across multiple experimental conditions can be
 time-consuming. To speed up the process, it is recommended to perform
@@ -490,8 +490,8 @@ can result in a significant reduction of computing time. For more
 information on other parallel execution strategies using futures, see
 <code>?future::plan()</code>.</p>
 </div>
-<div id="progress-bar-using-progressr" class="section level3">
-<h3>Progress bar using <code>progressr</code></h3>
+<div id="progress-bar-using-progressr" class="section level2">
+<h2>Progress bar using <code>progressr</code></h2>
 <p>It can be useful to get an approximation of the progress of the
 <code>powRICLPM</code> analysis while running the code, especially when
 running the analysis in parallel. <code>powRICLPM()</code> has
@@ -540,8 +540,8 @@ the below code for the example:</p>
 updates, see <a href="https://progressr.futureverse.org">https://progressr.futureverse.org</a>.</p>
 </div>
 </div>
-<div id="step-6-summarize-results" class="section level2">
-<h2>Step 6: Summarize results</h2>
+<div id="step-6-summarize-results" class="section level1">
+<h1>Step 6: Summarize results</h1>
 <p>The <code>powRICLPM()</code> function creates a
 <code>powRICLPM</code> object: A list with results, upon which we can
 call <code>print()</code>, <code>summary()</code>, <code>give()</code>,
@@ -560,9 +560,11 @@ inadmissible results). Second, by specifying the
 function will print the results specifically for that parameter across
 all experimental conditions. Third, if you specify a specific
 experimental condition using <code>summary()</code>’s
-<code>sample_size</code>, <code>time_points</code>, and <code>ICC</code>
-arguments, performance measures are outputted for all parameters in that
-experimental condition.</p>
+<code>sample_size</code>, <code>time_points</code>, <code>ICC</code> and
+<code>reliability</code> arguments, performance measures are outputted
+for all parameters in that experimental condition.</p>
+<p>The interpretation of the various performance measures available is
+explained in the function documentation <a href="https://jeroendmulder.github.io/powRICLPM/reference/summary.powRICLPM.html"><code>?summary.powRICLPM()</code></a>.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># Summary of study design</span></span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">summary</span>(output)</span>
 <span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a></span>

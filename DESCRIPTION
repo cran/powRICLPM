@@ -1,7 +1,7 @@
 Package: powRICLPM
 Title: Perform Power Analysis for the RI-CLPM and STARTS Model
-Version: 0.2.0
-Date: 2024-09-20
+Version: 0.2.1
+Date: 2024-10-26
 Authors@R: c(
     person("Jeroen", "Mulder", , "j.d.mulder@uu.nl", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-5553-0856")),
@@ -27,8 +27,8 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 RoxygenNote: 7.3.2
 NeedsCompilation: no
-Packaged: 2024-09-25 10:25:49 UTC; 5879167
+Packaged: 2024-10-26 13:36:53 UTC; 5879167
 Author: Jeroen Mulder [aut, cre, cph] (<https://orcid.org/0000-0002-5553-0856>),
   Netherlands Organization for Scientific Research [fnd]
 Repository: CRAN
-Date/Publication: 2024-09-25 12:40:02 UTC
+Date/Publication: 2024-10-26 13:50:03 UTC

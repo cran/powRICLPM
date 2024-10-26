@@ -29,7 +29,7 @@ check_Phi(Phi)
 #    reps = n_reps
 #  )
 
-## ----furrr-setup, eval = F----------------------------------------------------
+## ----future-setup, eval = F---------------------------------------------------
 #  # Load `future` and `progressr` packages
 #  library(future)
 #  library(progressr)

@@ -74,7 +74,7 @@ powRICLPM(
 
 \item{bounds}{(optional) A \code{logical}, denoting if bounded estimation should be used for the latent variable variances in the model (see "Details").}
 
-\item{estimator}{(options) A \code{character} string of length 1, denoting the estimator to be used (default: \code{ML}, see "Details").}
+\item{estimator}{(optional) A \code{character} string of length 1, denoting the estimator to be used (default: \code{ML}, see "Details").}
 
 \item{save_path}{A \code{character} string of length 1, naming the directory to save (data) files to (used for validation purposes of this package). Variables are saved in alphabetical and numerical order.}
 
@@ -129,7 +129,7 @@ library(future)
 library(progressr)
 future::plan(multisession, workers = 6)
 
-\donttest{
+\dontrun{
 # Run analysis (`reps` is small, because this is an example)
 with_progress({
   out_preliminary <- powRICLPM(
